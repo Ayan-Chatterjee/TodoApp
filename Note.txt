@@ -1,0 +1,72 @@
+===============================================
+TODO APPLICATION - SETUP & REFERENCE NOTES
+===============================================
+
+PROJECT SETUP
+=============
+1. Create virtual environment:
+   python3 -m venv fastapienv
+
+2. Activate virtual environment:
+   source fastapienv/bin/activate
+
+3. Install dependencies:
+   pip install -r requirements.txt
+
+4. Run the application:
+   uvicorn main:app --reload
+
+DEPENDENCIES
+============
+The following packages are used in this project:
+- fastapi==0.104.1        - Web framework for building APIs
+- sqlalchemy==2.0.23      - Database ORM for SQLite
+- passlib==1.7.4          - Password hashing with bcrypt
+- python-jose==3.3.0      - JWT token management
+- pydantic==2.5.0         - Data validation and settings
+- uvicorn==0.24.0         - ASGI server
+- cryptography==41.0.7    - Cryptographic functions for JWT
+
+INSTALLATION OPTIONS
+====================
+Option 1: Install all at once
+   pip install -r requirements.txt
+
+Option 2: Install individual packages
+   pip install sqlalchemy
+   pip install "python-jose[cryptography]"
+   pip install passlib
+   pip install fastapi
+   pip install uvicorn
+   pip install pydantic
+   pip install cryptography
+
+JWT (JSON Web Tokens) REFERENCE
+================================
+JWT Structure: Header.Payload.Signature
+Example: aaaa.bbbbbb.cccc
+
+Components:
+- Header: Contains token type and hashing algorithm
+- Payload: Contains claims/data
+- Signature: Ensures token integrity
+
+Generate Secret Key:
+   openssl rand -hex 32
+
+DATABASE
+========
+You can try different output styles in SQLite:
+   .mode markdown
+   .mode box
+   .mode table
+
+RUNNING THE APPLICATION
+=======================
+Start server:
+   uvicorn main:app --reload
+
+The application will be available at: http://127.0.0.1:8000
+API documentation: http://127.0.0.1:8000/docs
+
+PG admin Password Test1234!
