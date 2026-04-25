@@ -29,12 +29,14 @@ class CreateUserRequest(BaseModel):
     email: str
     first_name: str
     last_name: str
+    phone_number: str
     password: str
     role: str
 
 class Token(BaseModel):
     access_token: str
     token_type: str
+
 
 def get_db():
     db = SessionLocal()
@@ -81,6 +83,7 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
         hashed_password=bcrypt_context.hash(create_user_request.password),
         role=create_user_request.role,
         is_active=True,
+        phone_number=create_user_request.phone_number
     )
     db.add(create_user_model)
     db.commit()
@@ -93,3 +96,12 @@ async def login_for_access_token(db: db_dependency, form_data: Annotated[OAuth2P
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials")
     token = create_access_token(user.username, user.id, user.role, timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     return {'access_token': token, 'token_type': 'bearer'}
+
+@router.put("/phonenumner/{phone_number}", status_code=status.HTTP_200_OK)
+async def change_phone_number(user: Annotated[dict, Depends(get_current_user)], db: db_dependency, phone_number: str):
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication failed!")
+    user_model = db.query(Users).filter(Users.id == user.get("user_id")).first()
+    user_model.phone_number = phone_number
+    db.commit()
+    return "Successfully updated phone number"

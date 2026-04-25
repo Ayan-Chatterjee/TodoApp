@@ -94,3 +94,8 @@ PostgreSQL setup in Database:
 
 SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:Test1234!@localhost/TodoApplicationDatabase'
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
+
+Upgrade using alembic
+1. upgrade alembic f0a8230602e
+2. downgrade alembic -1
