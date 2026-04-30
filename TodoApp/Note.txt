@@ -1,0 +1,101 @@
+===============================================
+TODO APPLICATION - SETUP & REFERENCE NOTES
+===============================================
+
+PROJECT SETUP
+=============
+1. Create virtual environment:
+   python3 -m venv fastapienv
+
+2. Activate virtual environment:
+   source fastapienv/bin/activate
+
+3. Install dependencies:
+   pip install -r requirements.txt
+
+4. Run the application:
+   uvicorn main:app --reload
+
+DEPENDENCIES
+============
+The following packages are used in this project:
+- fastapi==0.104.1        - Web framework for building APIs
+- sqlalchemy==2.0.23      - Database ORM for PostgreSQL
+- passlib==1.7.4          - Password hashing with bcrypt
+- python-jose==3.3.0      - JWT token management
+- pydantic==2.5.0         - Data validation and settings
+- uvicorn==0.24.0         - ASGI server
+- cryptography==41.0.7    - Cryptographic functions for JWT
+- psycopg2-binary==2.9.12 - PostgreSQL adapter for Python
+- alembic==1.13.0         - Database migration tool
+
+INSTALLATION OPTIONS
+====================
+Option 1: Install all at once
+   pip install -r requirements.txt
+
+Option 2: Install individual packages
+   pip install sqlalchemy
+   pip install "python-jose[cryptography]"
+   pip install passlib
+   pip install fastapi
+   pip install uvicorn
+   pip install pydantic
+   pip install cryptography
+
+JWT (JSON Web Tokens) REFERENCE
+================================
+JWT Structure: Header.Payload.Signature
+Example: aaaa.bbbbbb.cccc
+
+Components:
+- Header: Contains token type and hashing algorithm
+- Payload: Contains claims/data
+- Signature: Ensures token integrity
+
+Generate Secret Key:
+   opens - POSTGRESQL
+=====================
+Connection String: postgresql://postgres:Test1234%21@localhost/TodoApplicationDatabase
+
+IMPORTANT: Special characters in password must be URL-encoded:
+- ! becomes %21
+
+Run migrations:
+   python migrate_add_role.py    (Python script)
+   or
+   psql -U postgres -d TodoApplicationDatabase -f migration_add_role.sql (SQL script)
+
+RUNNING THE APPLICATION
+=======================
+Start server:
+   uvicorn main:app --reload
+
+The application will be available at: http://127.0.0.1:8000
+API documentation: http://127.0.0.1:8000/docs
+Swagger UI: http://127.0.0.1:8000/docs
+ReDoc: http://127.0.0.1:8000/redoc
+
+PostgreSQL Credentials:
+- Username: postgres
+- Password: Test1234!
+- Host: localhost
+- Port: 5432
+- Database: TodoApplicationDatabase27.0.0.1:8000/docs
+
+PG admin Password Test1234!
+
+SQLite setup in Database:
+
+SQLALCHEMY_DATABASE_URL = 'sqlite:///./todosapp.db'
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+
+PostgreSQL setup in Database:
+
+SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:Test1234!@localhost/TodoApplicationDatabase'
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
+
+Upgrade using alembic
+1. upgrade alembic f0a8230602e
+2. downgrade alembic -1
