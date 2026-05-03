@@ -101,3 +101,5 @@ Upgrade using alembic
 2. downgrade alembic -1
 
 -- Update
+
+uvicorn TodoApp.main:app --reload
