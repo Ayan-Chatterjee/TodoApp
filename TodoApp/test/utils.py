@@ -10,11 +10,7 @@ import pytest
 from ..models import Todo, Users
 from ..routers.auth import bcrypt_context
 
-DB_FILE = Path(__file__).resolve().parent / "testdb.db"
-if DB_FILE.exists():
-    DB_FILE.unlink()
-
-SQLALCHEMY_DATABASE_URL = f"sqlite:///{DB_FILE}"
+SQLALCHEMY_DATABASE_URL = f"sqlite:///./testdb.db"
 os.environ["DATABASE_URL"] = SQLALCHEMY_DATABASE_URL
 
 engine = create_engine(
