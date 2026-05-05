@@ -36,7 +36,6 @@ def test_change_password_wrong_current_password(test_user):
 def test_change_phone_number(test_user):
     response = client.put("/users/phone-number/1234567899")
     assert response.status_code == status.HTTP_200_OK
-
     db = TestingSessionLocal()
     user = db.query(Users).filter(Users.id == test_user.id).first()
     assert user.phone_number == "1234567899"
