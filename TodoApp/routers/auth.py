@@ -6,9 +6,10 @@ from passlib.context import CryptContext
 from starlette import status
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from ..database import SessionLocal
 from ..models import Users
+from fastapi.templating import Jinja2Templates
 
 router = APIRouter(
     prefix="/auth",
@@ -46,6 +47,18 @@ def get_db():
         db.close()
 
 db_dependency = Annotated[Session, Depends(get_db)]
+
+templates = Jinja2Templates(directory="TodoApp/templates")
+
+
+@router.get("/login-page")
+def read_login(request: Request):
+    return templates.TemplateResponse(name="login.html", request=request)
+
+
+@router.get("/register-page")
+def read_register(request: Request):
+    return templates.TemplateResponse(name="register.html", request=request)
 
 def authenticate_user(db: Session, username: str, password: str):
     user = db.query(Users).filter(Users.username == username).first()

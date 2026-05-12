@@ -47,7 +47,7 @@ def test_create_todo(test_todo):
         "complete": False,
     }
 
-    response = client.post("todos/todos/", json=request_data)
+    response = client.post("todos/todo/", json=request_data)
     assert response.status_code == status.HTTP_201_CREATED
 
     db = TestingSessionLocal()
@@ -65,7 +65,7 @@ def test_update_todo(test_todo):
         "complete": True,
     }
 
-    response = client.put("todos/todos/1", json=request_data)
+    response = client.put("todos/todo/1", json=request_data)
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
     db = TestingSessionLocal()
@@ -83,12 +83,12 @@ def test_update_todo_not_found():
         "complete": True,
     }
 
-    response = client.put("todos/todos/29", json=request_data)
+    response = client.put("todos/todo/29", json=request_data)
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.json() == {"detail": "Todo not found"}
 
 def test_delete_todo(test_todo):
-    response = client.delete("todos/todos/1")
+    response = client.delete("todos/todo/1")
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
     db = TestingSessionLocal()
@@ -96,6 +96,6 @@ def test_delete_todo(test_todo):
     assert todo is None
 
 def test_delete_todo_not_found(test_todo):
-    response = client.delete("todos/todos/29")
+    response = client.delete("todos/todo/29")
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.json() == {"detail": "Todo not found"}
