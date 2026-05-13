@@ -47,7 +47,7 @@ def test_create_todo(test_todo):
         "complete": False,
     }
 
-    response = client.post("todos/todo/", json=request_data)
+    response = client.post("todos/todos/", json=request_data)
     assert response.status_code == status.HTTP_201_CREATED
 
     db = TestingSessionLocal()
