@@ -33,7 +33,7 @@ def test_read_one_authenticated(test_todo):
             "priority": 1,
             "owner_id": 1,
         }
-    
+
 def test_read_one_authenticated_not_found():
     response = client.get("todos/todos/2")
     assert response.status_code == status.HTTP_404_NOT_FOUND

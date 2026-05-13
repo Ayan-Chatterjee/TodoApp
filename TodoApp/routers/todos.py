@@ -40,6 +40,7 @@ def redirect_to_login():
     redirect_response.delete_cookie(key="access_token")
     return redirect_response
 
+# Application pages
 @router.get("/todo-page")
 async def render_todo_page(request: Request, db: db_dependency):
     try:
