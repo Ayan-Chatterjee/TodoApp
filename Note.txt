@@ -103,3 +103,6 @@ Upgrade using alembic
 -- Update
 
 uvicorn TodoApp.main:app --reload
+
+To create requirements file use this command
+pip freeze > requirements.txt
